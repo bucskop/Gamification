@@ -1,0 +1,65 @@
+import java.util.*;
+
+public class Main {
+
+    private static Scanner scanner = new Scanner(System.in);
+    private static GamificationApp app = new GamificationApp();
+    private static User currentUser;
+
+    public static void main(String[] args) {
+        // Adăugare utilizatori
+        app.addUser("Patrik");
+        app.addUser("Mihai");
+
+        // Adăugare quest-uri
+        app.addQuest(new Quest("Rezolvă un puzzle", 10, 0, 5, 60));
+        app.addQuest(new Quest("Scrie un articol despre gamification", 20, 0, 8, 120));
+        app.addQuest(new Quest("Participă la un eveniment de voluntariat", 0, 5, 10, 240));
+
+        boolean quit = false;
+        while (!quit) {
+            System.out.println("Bun venit la GamificationApp!");
+            System.out.println("1. Vizualizare profil");
+            System.out.println("2. Vizualizare quest-uri");
+            System.out.println("3. Rezolvare quest");
+            System.out.println("4. Ieșire");
+            System.out.print("Alege o opțiune: ");
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    viewProfile();
+                    break;
+                case 2:
+                    viewQuests();
+                    break;
+                case 3:
+                    solveQuest();
+                    break;
+                case 4:
+                    quit = true;
+                    break;
+                default:
+                    System.out.println("Opțiune invalidă.");
+                    break;
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static void viewProfile() {
+        System.out.println("Nume: " + currentUser.getName());
+        System.out.println("Punctaj: " + currentUser.getScore());
+        System.out.println("Token-uri: " + currentUser.getTokens());
+        System.out.println("Insigne: " + currentUser.getBadges());
+    }
+
+    private static void viewQuests() {
+        List<Quest> quests = app.getQuests();
+        System.out.println("Quest-uri disponibile:");
+        for (int i = 0; i < quests.size(); i++) {
+            Quest quest = quests.get(i);
+            System.out.println(i + 1 + ". " + quest.getDescription() + " (" + quest.getTokens() + " token-uri, " + quest.getBadges() + " insigne, dificultate " + quest.getDifficulty() + ", durată " + quest.getDuration() + " minute)");
+        }
+//Nu am mai avut timp:))
